@@ -1,10 +1,22 @@
 import json
+import boto3
+
+dynamodb = boto3.client('dynamodb')
 
 
 def lambda_handler(event, context):
-    # check is user already create a character
+    commands = ['支援的指令:']
+    line_uid = event['line_uid']
+    db_result = dynamodb.get_item(TableName='Player', Key={'line_uid': {'S': line_uid}})
 
-    commands = ['info: 查看用戶資訊']
+    if 'Item' in db_result.keys():
+        commands.append('info: 查看角色資訊')
+        commands.append('map: 查看地圖資訊')
+        commands.append('item: 查看道具')
+        commands.append('city: 查看個人城市')
+    else:
+        commands.append('new user_name: 輸入new 空格 角色名稱以創建新角色!!')
+
     json_dump = json.dumps(commands, ensure_ascii=False)
 
     return bytes(json_dump, 'utf-8')

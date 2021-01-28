@@ -20,18 +20,24 @@ def lambda_handler(event, context):
     }[event['events'][0]['message']['text']]
 
     user_id = event['events'][0]['source']['userId']
-    data = {'user_id': user_id}
+    data = {'line_uid': user_id}
     json_dump = json.dumps(data)
 
-    response = client.invoke(
+    lambda_response = client.invoke(
         FunctionName=lambda_function_name,
         InvocationType='RequestResponse',
         Payload=json_dump
     )
 
-    response_string = response['Payload'].read().decode("utf-8")
+    lambda_response_string = lambda_response['Payload'].read().decode("utf-8")
+
+    json_node = json.loads(lambda_response_string)
+
+    response = ''
+    for command in json_node:
+        response += command + '\n'
 
     line_bot_api.reply_message(
         event['events'][0]['replyToken'],
-        TextSendMessage(text=response_string))
+        TextSendMessage(text=response))
     return {'statusCode': 200, 'body': 'OK'}
