@@ -14,9 +14,13 @@ def lambda_handler(event, context):
         result.append('已創立過角色 創建新角色失敗')
     else:
         put_result = dynamodb.put_item(TableName='Player', Item={'line_uid':{'S':line_uid},'name':{'S':name}})
-        print(put_result)
-        result.append('角色創建成功!!')
-        result.append('輸入help查看可執行指令')
+        if put_result['ResponseMetadata']['HTTPStatusCode'] == 200:
+            result.append('角色創建成功!!')
+            result.append('輸入help查看可執行指令')
+        else:
+            print(event)
+            print(put_result)
+            result.append('角色創建失敗')
 
     json_dump = json.dumps(result, ensure_ascii=False)
 
