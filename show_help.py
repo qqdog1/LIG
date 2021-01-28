@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         commands.append('item: 查看道具')
         commands.append('city: 查看個人城市')
     else:
-        commands.append('new user_name: 輸入new 空格 角色名稱以創建新角色!!')
+        commands.append('new 角色名稱: 輸入new 空格 角色名稱以創建新角色!!')
 
     json_dump = json.dumps(commands, ensure_ascii=False)
 

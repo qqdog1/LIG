@@ -13,31 +13,61 @@ client = boto3.client('lambda')
 
 
 def lambda_handler(event, context):
+    call_lambda = True
+    response = ''
+    error_msg = ''
+    line_uid = event['events'][0]['source']['userId']
+    commands = event['events'][0]['message']['text'].split(' ')
+    user_action = commands[0]
+
     lambda_function_name = {
         'help': os.getenv('show_help_function'),
         'info': os.getenv('show_info_function'),
         'new': os.getenv('create_user_function')
-    }[event['events'][0]['message']['text']]
+    }[user_action]
 
-    user_id = event['events'][0]['source']['userId']
-    data = {'line_uid': user_id}
-    json_dump = json.dumps(data)
+    data = {}
+    if user_action == 'help':
+        data = prepare_help_data(line_uid)
+    elif user_action == 'new':
+        if len(commands) >= 2 and commands[1] != '':
+            data = prepare_new_user_data(line_uid, commands[1])
+        else:
+            call_lambda = False
+            error_msg = '請輸入名稱'
 
-    lambda_response = client.invoke(
-        FunctionName=lambda_function_name,
-        InvocationType='RequestResponse',
-        Payload=json_dump
-    )
+    if call_lambda:
+        json_dump = json.dumps(data)
 
-    lambda_response_string = lambda_response['Payload'].read().decode("utf-8")
+        lambda_response = client.invoke(
+            FunctionName=lambda_function_name,
+            InvocationType='RequestResponse',
+            Payload=json_dump
+        )
 
-    json_node = json.loads(lambda_response_string)
+        lambda_response_string = lambda_response['Payload'].read().decode("utf-8")
 
-    response = ''
-    for command in json_node:
-        response += command + '\n'
+        json_node = json.loads(lambda_response_string)
+
+        for command in json_node:
+            response += command + '\n'
+    else:
+        response = error_msg
 
     line_bot_api.reply_message(
         event['events'][0]['replyToken'],
         TextSendMessage(text=response))
     return {'statusCode': 200, 'body': 'OK'}
+
+
+def prepare_help_data(line_uid):
+    data = {'line_uid': line_uid}
+    return data
+
+
+def prepare_new_user_data(line_uid, name):
+    data = {
+        'line_uid': line_uid,
+        'name': name
+    }
+    return data
