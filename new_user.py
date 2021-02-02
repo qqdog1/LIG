@@ -1,7 +1,8 @@
 import json
 import boto3
 
-dynamodb = boto3.client('dynamodb')
+dynamodb = boto3.resource('dynamodb')
+player_table = dynamodb.Table('Player')
 
 
 def lambda_handler(event, context):
@@ -26,21 +27,28 @@ def lambda_handler(event, context):
 
 
 def check_if_character_exist(line_uid):
-    db_result = dynamodb.get_item(TableName='Player', Key={'line_uid': {'S': line_uid}})
+    db_result = player_table.get_item(Key={'line_uid': line_uid})
     if 'Item' in db_result.keys():
         return True
     return False
 
 
 def check_if_name_exist(name):
-    db_result = dynamodb.get_item(TableName='Player', Key={'name': {'S': name}})
-    if 'Item' in db_result.keys():
-        return True
+    response = player_table.scan(
+        AttributesToGet=['name']
+    )
+    print(response)
+    if response['Count'] > 0:
+        for item in response['Items']:
+            if item['name'] == name:
+                return True
     return False
 
 
 def insert_new_name(line_uid, name):
-    put_result = dynamodb.put_item(TableName='Player', Item={'line_uid': {'S': line_uid}, 'name': {'S': name}})
+    put_result = player_table.put_item(Item={'line_uid': line_uid, 'name': name,
+                                             'lv': 1, 'money': 0,
+                                             'location_id': 0})
     if put_result['ResponseMetadata']['HTTPStatusCode'] == 200:
         return True
     print(put_result)
