@@ -7,8 +7,7 @@ client = boto3.client('lambda')
 
 def lambda_handler(event, context):
     lambda_function_name = [
-        os.getenv('create_player_table_function'),
-        os.getenv('create_location_table_function')
+        os.getenv('init_location_data_function')
     ]
 
     for function_name in lambda_function_name:

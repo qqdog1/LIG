@@ -27,6 +27,8 @@ def lambda_handler(event, context):
         is_pass_check, data = prepare_help_data(line_uid)
     elif user_action == 'new':
         is_pass_check, data = prepare_new_user_data(line_uid, commands)
+    elif user_action == 'info':
+        is_pass_check, data = prepare_info_data(line_uid)
 
     if is_pass_check:
         json_dump = json.dumps(data)
@@ -66,6 +68,11 @@ def prepare_new_user_data(line_uid, commands):
         return True, data
     else:
         return False, '請輸入名稱'
+
+
+def prepare_info_data(line_uid):
+    data = {'line_uid': line_uid}
+    return True, data
 
 
 def call_lambda(lambda_function_name, data):
