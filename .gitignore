@@ -10,3 +10,6 @@
 /past
 /requests*
 /urllib3*
+/venv
+/.idea
+*.zip
