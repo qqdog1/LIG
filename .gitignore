@@ -1,0 +1,12 @@
+/bin
+/certifi*
+/chardet*
+/future*
+/idna*
+/libfuturize
+/libpasteurize
+/line_bot_sdk-1.18.0.dist-info
+/linebot
+/past
+/requests*
+/urllib3*
