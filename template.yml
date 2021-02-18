@@ -7,8 +7,8 @@ Resources:
   lig-entry:
     Type: AWS::Serverless::Function
       Properties:
-        FunctionName: lig-entry
-        Handler: entry.lambda_handler
+        FunctionName: lig-show-help
+        Handler: lambda_function.lambda_handler
         CodeUri: ./
         Runtime: python3.8   
         AutoPublishAlias: live
