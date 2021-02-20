@@ -15,6 +15,7 @@ def lambda_handler(event, context):
         commands.append('map: 查看地圖資訊')
         commands.append('item: 查看道具')
         commands.append('city: 查看個人城市')
+        commands.append('lambda deploy test message 1')
     else:
         commands.append('new 角色名稱: 輸入new 空格 角色名稱以創建新角色!!')
 
