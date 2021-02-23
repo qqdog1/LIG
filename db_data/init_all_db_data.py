@@ -7,7 +7,10 @@ client = boto3.client('lambda')
 
 def lambda_handler(event, context):
     lambda_function_name = [
-        os.getenv('init_location_data_function')
+        os.getenv('insert_location_data_function'),
+        os.getenv('insert_level_info_data_function'),
+        os.getenv('insert_equip_info_data_function'),
+        os.getenv('insert_boss_info_data_function')
     ]
 
     for function_name in lambda_function_name:
