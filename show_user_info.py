@@ -12,12 +12,13 @@ def lambda_handler(event, context):
 
     if 'Item' in db_result.keys():
         item = db_result['Item']
+        level_info = getLevelInfo(item['lv'])
         result.append('角色名稱: ' + item['name'] + ' 所在區域: ' + getLocationName(item['location_id']))
-        result.append('等級: ' + str(item['lv']) + ' exp: ' + str(item['exp']) + "/" + str(getNeedExp(item['lv'])))
+        result.append('等級: ' + str(item['lv']) + ' exp: ' + str(item['exp']) + "/" + str(level_info['lv']))
         result.append('持有金錢: ' + str(item['money']))
-        result.append('生命: ' + ' 魔力: ')
-        result.append('攻擊: ' + ' 防禦: ')
-        result.append('速度: ')
+        result.append('生命: ' + str(level_info['hp']) + ' 魔力: ' + str(level_info['mp']))
+        result.append('攻擊: ' + str(level_info['at']) + ' 防禦: ' + str(level_info['def']))
+        result.append('速度: ' + str(level_info['spd']))
     else:
         result.append('請先創建角色')
 
@@ -37,12 +38,12 @@ def getLocationName(location_id):
         return '???'
 
 
-def getNeedExp(lv):
+def getLevelInfo(lv):
     table = dynamodb.Table('Level_Info')
     db_result = table.get_item(Key={'lv': lv})
     if 'Item' in db_result.keys():
         item = db_result['Item']
-        return item['exp']
+        return item
     else:
-        print('找不到對應的exp:' + lv)
+        print('找不到對應的等級資訊:' + lv)
         return '???'
