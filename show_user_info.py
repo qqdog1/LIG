@@ -12,8 +12,8 @@ def lambda_handler(event, context):
 
     if 'Item' in db_result.keys():
         item = db_result['Item']
-        level_info = getLevelInfo(item['lv'])
-        result.append('角色名稱: ' + item['name'] + ' 所在區域: ' + getLocationName(item['location_id']))
+        level_info = get_level_info(item['lv'])
+        result.append('角色名稱: ' + item['name'] + ' 所在區域: ' + get_location_name(item['location_id']))
         result.append('等級: ' + str(item['lv']) + ' exp: ' + str(item['exp']) + "/" + str(level_info['lv']))
         result.append('持有金錢: ' + str(item['money']))
         result.append('生命: ' + str(level_info['hp']) + ' 魔力: ' + str(level_info['mp']))
@@ -27,7 +27,7 @@ def lambda_handler(event, context):
     return bytes(json_dump, 'utf-8')
 
 
-def getLocationName(location_id):
+def get_location_name(location_id):
     table = dynamodb.Table('Location')
     db_result = table.get_item(Key={'location_id': location_id})
     if 'Item' in db_result.keys():
@@ -38,7 +38,7 @@ def getLocationName(location_id):
         return '???'
 
 
-def getLevelInfo(lv):
+def get_level_info(lv):
     table = dynamodb.Table('Level_Info')
     db_result = table.get_item(Key={'lv': lv})
     if 'Item' in db_result.keys():

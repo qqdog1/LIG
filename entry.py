@@ -29,6 +29,8 @@ def lambda_handler(event, context):
         is_pass_check, data = prepare_new_user_data(line_uid, commands)
     elif user_action == 'info':
         is_pass_check, data = prepare_info_data(line_uid)
+    elif user_action == 'map':
+        is_pass_check, data = prepare_map_info_data(line_uid)
 
     if is_pass_check:
         json_dump = json.dumps(data)
@@ -44,6 +46,7 @@ def lambda_handler(event, context):
 
 def get_lambda_function_name(user_action):
     lambda_function_name = {
+        'map': os.getenv('show_map_function'),
         'help': os.getenv('show_help_function'),
         'info': os.getenv('show_info_function'),
         'new': os.getenv('create_user_function')
@@ -71,6 +74,11 @@ def prepare_new_user_data(line_uid, commands):
 
 
 def prepare_info_data(line_uid):
+    data = {'line_uid': line_uid}
+    return True, data
+
+
+def prepare_map_info_data(line_uid):
     data = {'line_uid': line_uid}
     return True, data
 
