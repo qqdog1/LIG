@@ -31,6 +31,8 @@ def lambda_handler(event, context):
         is_pass_check, data = prepare_info_data(line_uid)
     elif user_action == 'map':
         is_pass_check, data = prepare_map_info_data(line_uid)
+    elif user_action == 'move':
+        is_pass_check, data = prepare_move_data(line_uid, commands)
 
     if is_pass_check:
         json_dump = json.dumps(data)
@@ -49,7 +51,8 @@ def get_lambda_function_name(user_action):
         'map': os.getenv('show_map_function'),
         'help': os.getenv('show_help_function'),
         'info': os.getenv('show_info_function'),
-        'new': os.getenv('create_user_function')
+        'new': os.getenv('action_new_user_function'),
+        'move': os.getenv('action_move_function')
     }
 
     if user_action in lambda_function_name:
@@ -81,6 +84,17 @@ def prepare_info_data(line_uid):
 def prepare_map_info_data(line_uid):
     data = {'line_uid': line_uid}
     return True, data
+
+
+def prepare_move_data(line_uid, commands):
+    if len(commands) >= 2 and commands[1] != '':
+        data = {
+            'line_uid': line_uid,
+            'location_id': commands[1]
+        }
+        return True, data
+    else:
+        return False, '請輸入要移動到的地方'
 
 
 def call_lambda(lambda_function_name, data):
