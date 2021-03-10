@@ -11,6 +11,7 @@ def lambda_handler(event, context):
     db_result = table.get_item(Key={'line_uid': line_uid})
 
     if 'Item' in db_result.keys():
+        commands.append('check: 結算目前戰鬥結果')
         commands.append('info: 查看角色資訊')
         commands.append('map: 查看地圖資訊')
         commands.append('item: 查看道具')

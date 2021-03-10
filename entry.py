@@ -24,15 +24,17 @@ def lambda_handler(event, context):
 
     data = {}
     if user_action == 'help':
-        is_pass_check, data = prepare_help_data(line_uid)
+        is_pass_check, data = prepare_line_uid(line_uid)
     elif user_action == 'new':
         is_pass_check, data = prepare_new_user_data(line_uid, commands)
     elif user_action == 'info':
-        is_pass_check, data = prepare_info_data(line_uid)
+        is_pass_check, data = prepare_line_uid(line_uid)
     elif user_action == 'map':
-        is_pass_check, data = prepare_map_info_data(line_uid)
+        is_pass_check, data = prepare_line_uid(line_uid)
     elif user_action == 'move':
         is_pass_check, data = prepare_move_data(line_uid, commands)
+    elif user_action == 'check':
+        is_pass_check, data = prepare_line_uid(line_uid)
 
     if is_pass_check:
         json_dump = json.dumps(data)
@@ -52,17 +54,13 @@ def get_lambda_function_name(user_action):
         'help': os.getenv('show_help_function'),
         'info': os.getenv('show_info_function'),
         'new': os.getenv('action_new_user_function'),
-        'move': os.getenv('action_move_function')
+        'move': os.getenv('action_move_function'),
+        'check': os.getenv('action_check_function')
     }
 
     if user_action in lambda_function_name:
         return lambda_function_name[user_action]
     return ''
-
-
-def prepare_help_data(line_uid):
-    data = {'line_uid': line_uid}
-    return True, data
 
 
 def prepare_new_user_data(line_uid, commands):
@@ -76,16 +74,6 @@ def prepare_new_user_data(line_uid, commands):
         return False, '請輸入名稱'
 
 
-def prepare_info_data(line_uid):
-    data = {'line_uid': line_uid}
-    return True, data
-
-
-def prepare_map_info_data(line_uid):
-    data = {'line_uid': line_uid}
-    return True, data
-
-
 def prepare_move_data(line_uid, commands):
     if len(commands) >= 2 and commands[1] != '':
         data = {
@@ -95,6 +83,11 @@ def prepare_move_data(line_uid, commands):
         return True, data
     else:
         return False, '請輸入要移動到的地方'
+
+
+def prepare_line_uid(line_uid):
+    data = {'line_uid': line_uid}
+    return True, data
 
 
 def call_lambda(lambda_function_name, data):
