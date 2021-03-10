@@ -22,7 +22,8 @@ def lambda_handler(event, context):
 
 def calc_and_reset(item):
     result = []
-    if item['location_id'] != 0:
+    location_id = item['location_id']
+    if location_id != 0:
         result.append('')
     else:
         result.append('此區域無法獲得戰鬥經驗')
