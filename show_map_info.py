@@ -31,8 +31,8 @@ def get_user_location(line_uid):
     db_result = table.get_item(Key={'line_uid': line_uid})
 
     if 'Item' in db_result.keys():
-        item = db_result['Item']
-        return True, item['location_id']
+        player = db_result['Item']
+        return True, player['location_id']
     else:
         return False, 0
 
