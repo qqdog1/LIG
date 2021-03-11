@@ -14,7 +14,7 @@ def lambda_handler(event, context):
         player = db_result['Item']
         level_info = get_level_info(player['lv'])
         result.append('角色名稱: ' + player['name'] + ' 所在區域: ' + get_location_name(player['location_id']))
-        result.append('等級: ' + str(player['lv']) + ' exp: ' + str(player['exp']) + "/" + str(level_info['lv']))
+        result.append('等級: ' + str(player['lv']) + ' exp: ' + str(player['exp']) + "/" + str(level_info['exp']))
         result.append('持有金錢: ' + str(player['money']))
         result.append('生命: ' + str(level_info['hp']) + ' 魔力: ' + str(level_info['mp']))
         result.append('攻擊: ' + str(level_info['at']) + ' 防禦: ' + str(level_info['def']))

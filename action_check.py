@@ -77,9 +77,12 @@ def get_exp_and_new_level(gain_exp, player_exp, player_lv):
         print('location資料不存在?')
         return exp, player_lv
 
+    print('開始計算升級')
+    print('總共獲得經驗:' + str(exp))
     while True:
         if player_lv in level_info.keys():
             lv_exp = level_info[player_lv]['exp']
+            print('角色等級: ' + str(player_lv) + ' 本級需要經驗:' + str(lv_exp))
             if exp >= lv_exp:
                 player_lv = player_lv + 1
                 exp = exp - lv_exp
