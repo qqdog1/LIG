@@ -14,7 +14,7 @@ def lambda_handler(event, context):
             7: {'exp': 1300, 'hp': 102, 'mp': 36, 'at': 33, 'def': 3, 'spd': 11},
             8: {'exp': 2700, 'hp': 144, 'mp': 45, 'at': 40, 'def': 3, 'spd': 11},
             9: {'exp': 5500, 'hp': 201, 'mp': 58, 'at': 47, 'def': 4, 'spd': 11},
-            10: {'exp': 12000, 'hp': 278, 'mp': 67, 'at': 55, 'def': 5, 'spd': 12}}
+            10: {'exp': -1, 'hp': 278, 'mp': 67, 'at': 55, 'def': 5, 'spd': 12}}
 
     for lv in data:
         var = data[lv]

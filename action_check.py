@@ -82,6 +82,8 @@ def get_exp_and_new_level(gain_exp, player_exp, player_lv):
     while True:
         if player_lv in level_info.keys():
             lv_exp = level_info[player_lv]['exp']
+            if lv_exp == -1:
+                break
             print('角色等級: ' + str(player_lv) + ' 本級需要經驗:' + str(lv_exp))
             if exp >= lv_exp:
                 player_lv = player_lv + 1
