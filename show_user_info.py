@@ -34,7 +34,7 @@ def get_location_name(location_id):
         location = db_result['Item']
         return location['name']
     else:
-        print('找不到對應的location id:' + location_id)
+        print('找不到對應的location id:' + str(location_id))
         return '???'
 
 
@@ -44,5 +44,5 @@ def get_level_info(lv):
     if 'Item' in db_result.keys():
         return db_result['Item']
     else:
-        print('找不到對應的等級資訊:' + lv)
+        print('找不到對應的等級資訊:' + str(lv))
         return '???'

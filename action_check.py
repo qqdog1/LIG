@@ -33,10 +33,10 @@ def calc_and_reset(player):
         new_exp, new_lv = get_exp_and_new_level(gain_exp, player['exp'], player['lv'])
         update_player(player['line_uid'], new_lv, new_exp, new_money, new_update_time)
 
-        result.append('經歷 ' + fight_count + '次戰鬥')
-        result.append('獲得 ' + gain_exp + '經驗 ' + gain_money + '金錢')
+        result.append('經歷 ' + str(fight_count) + '次戰鬥')
+        result.append('獲得 ' + str(gain_exp) + '經驗 ' + str(gain_money) + '金錢')
         if new_lv > player['lv']:
-            result.append('等級提升到 ' + new_lv)
+            result.append('等級提升到 ' + str(new_lv))
     else:
         result.append('此區域無法獲得戰鬥經驗')
     return result
@@ -50,7 +50,7 @@ def get_location_exp_and_money(location_id):
         location = db_result['Item']
         return location['exp'], location['money']
     else:
-        print('找不到這個location id?' + location_id)
+        print('找不到這個location id?' + str(location_id))
         return 0, 0
 
 
@@ -99,4 +99,3 @@ def update_player(line_uid, lv, exp, money, update_time):
         ReturnValues="UPDATED_NEW"
     )
     print(response)
-
