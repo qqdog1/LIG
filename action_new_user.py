@@ -53,7 +53,7 @@ def insert_new_name(line_uid, name):
                                              'money': 0,
                                              'location_id': 0,
                                              'exp': 0,
-                                             'pass_location': 0,
+                                             'passed_location': 0,
                                              'last_update_time': int(time.time())})
     if put_result['ResponseMetadata']['HTTPStatusCode'] == 200:
         return True

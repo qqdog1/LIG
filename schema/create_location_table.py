@@ -18,10 +18,7 @@ def lambda_handler(event, context):
                 'AttributeType': 'N'
             }
         ],
-        ProvisionedThroughput={
-            'ReadCapacityUnits': 5,
-            'WriteCapacityUnits': 5
-        }
+        BillingMode='PAY_PER_REQUEST'
     )
 
     return {

@@ -40,7 +40,7 @@ def is_pass_location(line_uid, location_id):
 
     if 'Item' in db_result.keys():
         player = db_result['Item']
-        passed_location = player['pass_location']
+        passed_location = player['passed_location']
         if location_number == (int(passed_location) & location_number):
             return True, True
         return True, False
