@@ -26,6 +26,10 @@ boss = {1: {'hp': 10, 'atk': 2, 'def': 0, 'spd': 10},
         5: {'hp': 168, 'atk': 12, 'def': 1, 'spd': 10},
         6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
         7: {'hp': 350, 'atk': 28, 'def': 2, 'spd': 10},
+        8: {'hp': 462, 'atk': 36, 'def': 2, 'spd': 10},
+        9: {'hp': 602, 'atk': 47, 'def': 2, 'spd': 10},
+        10: {'hp': 749, 'atk': 50, 'def': 1, 'spd': 11},
+        11: {'hp': 882, 'atk': 68, 'def': 2, 'spd': 10},
 
         6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
         6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
@@ -35,15 +39,11 @@ boss = {1: {'hp': 10, 'atk': 2, 'def': 0, 'spd': 10},
         6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
         6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
         6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},}
+        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10}}
 
 speed_bar = 100
-user_lv = 7
-boss_lv = 7
+user_lv = 11
+boss_lv = 11
 
 
 def print_fighting_process():
