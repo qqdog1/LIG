@@ -31,15 +31,15 @@ boss = {1: {'hp': 10, 'atk': 2, 'def': 0, 'spd': 10},
         10: {'hp': 749, 'atk': 50, 'def': 1, 'spd': 11},
         11: {'hp': 882, 'atk': 68, 'def': 2, 'spd': 10},
 
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10},
-        6: {'hp': 252, 'atk': 20, 'def': 1, 'spd': 10}}
+        6: {'hp': 252, 'atk': 20, 'def': 2, 'spd': 10},
+        6: {'hp': 252, 'atk': 20, 'def': 2, 'spd': 10},
+        6: {'hp': 252, 'atk': 20, 'def': 2, 'spd': 10},
+        6: {'hp': 252, 'atk': 20, 'def': 2, 'spd': 10},
+        6: {'hp': 252, 'atk': 20, 'def': 3, 'spd': 10},
+        6: {'hp': 252, 'atk': 20, 'def': 3, 'spd': 12},
+        6: {'hp': 252, 'atk': 20, 'def': 3, 'spd': 8},
+        6: {'hp': 252, 'atk': 20, 'def': 3, 'spd': 11},
+        6: {'hp': 252, 'atk': 20, 'def': 5, 'spd': 10}}
 
 speed_bar = 100
 user_lv = 11
@@ -56,15 +56,18 @@ def print_fighting_process():
     user_run = 0
     boss_run = 0
 
+    print('---------------------------------------------------')
+    print('user hp: ' + str(user_hp) + ' ,boss hp: ' + str(boss_hp))
+
     while True:
-        print('---------------------------------------------------')
-        print('user hp: ' + str(user_hp) + ' ,boss hp: ' + str(boss_hp))
         user_run += user_data['spd']
         boss_run += boss_data['spd']
 
         if user_run >= speed_bar:
             user_run -= speed_bar
             boss_hp -= user_data['atk'] - boss_data['def']
+            print('user attack')
+            print('user hp: ' + str(user_hp) + ' ,boss hp: ' + str(boss_hp))
             if boss_hp <= 0:
                 print('win')
                 break
@@ -72,6 +75,8 @@ def print_fighting_process():
         if boss_run >= speed_bar:
             boss_run -= speed_bar
             user_hp -= boss_data['atk'] - user_data['def']
+            print('boss attack')
+            print('user hp: ' + str(user_hp) + ' ,boss hp: ' + str(boss_hp))
             if user_hp <= 0:
                 print('lose')
                 break
